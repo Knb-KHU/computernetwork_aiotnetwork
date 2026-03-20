@@ -1,0 +1,62 @@
+과제제출양식:제목:학번_이름_주차번호,유저프로필 바꾸기
+ex)2022101472_고은비_3
+
+#IP할당
+-방식
+dhcp>vertigation기술중하나, IPV4로 넘어가지 않도록>자동할당
+static>수동 설정
+-규칙
+ip/mac주소 중복x
+mac주소 할당불가 >네트워크에 연결되는 디바이스를 만드는 회사에서 선제적으로 mac주소 할당>ROM기입
+2계층 MAC
+3계층 IP
+
+3계층>라우터
+
+#데이터
+1계층 데이터:bit
+2계층 데이터:frame
+3계층 데이터:packet
+
+#l2의 통신방식
+-2계층:데이터링크계층:네트워크장치통신
+/24>서브넷 마스크(필요)
+>24비트=8.8.8.0>십진수 255.255.255.0
+
+#프로트콜
+-ICMP=Echo Request +Echo Reply
+> 반응이 오는지를 확인해 통신을 확인하는 프로트콜(연결성)
+ex)출석 시 호명>request 대답>reply
+>echo request ex) ping ip address>ping 203.230.7.2
+-핑오브넷>echo request를 과도하게 요청>자원고갈
+
+-ARP
+>상대방의 IP주소는 아는데, 상대방의 맥주소를 모를때 쓰는 프로트콜
+>플러딩: 데이터가 들어온 포트를 제외한 나머지 포트에 데이터를 복사해서 보냄
+
+broadcast domian:플러딩 되는 포트의 개수(범위)
+
+-MAC-Table
+>플러딩을 방지하기 위한 1대1통신을 위한 표
+>agingtime=통신을 하지 않더라도 MAC-table을 저장해두는 시간 / 기본=300초
+
+#통신유형
+-unicast=1:1
+-Multicast(그루핑가능)=1:N
+-Broadcast(그루핑 불가)=1:N
+
+#이더넷통신의 철칙
+1.회선공유를 하지 않는다
+>collision domain(동시에 통신할수 있는 도메인의 개수)
+>스위치와 연결된 1개의 포트당 1의 collision domain
+
+#Segmentation=데이터분할(표준=1504byte(이하))
+-sequence number통합을 위한 번호
+
+
+-WAN:서버와 라우터 사이
+-MAN:라우터와라우터사이
+-LAN:스위치와디바이스사이
+
+-Encapuslation
+
