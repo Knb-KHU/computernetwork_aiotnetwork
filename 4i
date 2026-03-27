@@ -1,0 +1,7 @@
+#라우팅 프로트콜
+-알지 못하는 브로드캐스트 도메인의 주소를 알기 위한 프로트콜
+-Dynamic>자동 최적화>System의 일부분을 라우팅이 가능하도록 유지하는데 사용
+>Distant Vector Routing Protcol:Broadcast
+ex)RIP
+-Staitc>사람이 조정
+
