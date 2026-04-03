@@ -30,7 +30,7 @@ l3 라우터 기반으로 브로드캐스트가 나뉘어야하는데 안 나뉘
 할당x내가 쓰는 주소>사설IP
 ISP에 돈을 내니까 쓰세요 하고 주는 공인IP>공인IP
 
-사설IP를 공인IP로 변경해주는 서비스:network adrress service>NAT
+사설IP를 공인IP로 변경해주는 서비스:network adrress translation>NAT
 
 LAN>Local Area Network>내부 네트워크
 MAN>Metropolitan Area Network>LAN+LAN
@@ -60,7 +60,9 @@ os:윈도우,리눅스,맥
 #라우팅
 static:r2p
 > #ip route(상대방의 ip를 몰라서 사용>네트워크id사용) network-address subnet-mask {ip-address or exit interface}
+
 <img width="1634" height="611" alt="Image" src="https://github.com/user-attachments/assets/bcdae90e-e837-4185-a024-ac94952f4893" />
+
 dynamic:
 +distance state
   convergence(수렴)
@@ -70,3 +72,5 @@ dynamic:
   일반적 사용
 
 효율화 위해>가상화기술(flooding감소)
+
+passive-interface gi0/0/0(exit interface)>특정 경로 호출 금지
