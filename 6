@@ -1,0 +1,65 @@
+S-R-Sw-PC1  PC1과 PC2는 데이터를 세분화해서 보냄>라우터 FIFO방식으로 데이터 처리>qualityofservic(QOS)=빨리 전달하기 위한 우선순위=트래픽클래스
+      -PC2
+#IPV6 기본헤더
+버전:IPV$/IPV6
+트래픽클래스:데이터전송우선순위
+페이로드 길이:헤더와 데이터 경계 구분
+다음헤더:확장헤더 유무
+홉 제한: 목적지가 사라져 라우터 사이에서 데이터가 도는 루핑을 방지하기 위해 있는 수치(255 이하)
+//홉카운트:출발지에서 목적지까지 가는 동안의 라우터의 개수
+이중콜론은 한번만,선행하는 0은 생략 가능, 뒤에 있는 0은 생략 불가
+
+TCP/IP>신뢰성 >서비스
+UDP>빨리
+
+라우터 스위치
+손상>subset os(rommon모드)=windows안전부팅
+Router>사용자모드 Router#관리자모드 Router(config)#전역설정모드
+
+#네트워크
+TCP/IP>한개가 아닌 여러프로트콜의 조합
+Netowrk >무선 BAN(Body영역 네트워크) ,PAN
+        >유선 LAN,MAN,WAN
+4계층
+응용계층=응용+표현+세션 계층 
+전송계층=전송계층
+  TCP(Transmission Control Protocol)/UDP(User Datagram Protcol)
+  신뢰성 있는 통신 방식                신뢰성x
+  (segmented된 데이터의)
+  sequence number(를 확인)            확인x
+  값을 마킹=헤더
+  +TCP 헤더                                                             +UDP헤더
+    하나의 헤더=하나의 기능                                                출발지 목적지 포트 번호 길이와 검사합
+    출발지의 포트번호=랜덤이므로 보안에 사용x 목적지 포트번호 사용
+    20~60바이트 사이> 그 이상일시 폐기
+    헤더 길이>헤더의 길이 확인
+    URG=유효한지 아닌지 판단
+    FIN=마지막 메시지
+    tcp검사 필드=오류 있는지 없는지
+  tcp 속도보완>window size(한꺼번에 여러데이터를 보냄)>한꺼번에 여러 세분화된 데이터를 보냄=sliding window
+  둘 다 서비스이므로 포트번호 정의>표준화 문서>RFC 1700
+  TCP/UDP Wellknown port
+  ex) 7 echo echo protcol
+      22 ssh ssh remote login protcol 등 tcp/udp 둘다 사용하는 서비스도 있다.
+  +TCP의 신뢰성 통신
+    SACK(Selective ACK)잘 받은 부분을 전송 ex)ACK3SACK(5-10) > 3번패킷부터 오류 5번에서 10번은 잘 받음
+  +현재 트렌드=UDP기반 TCP필요기능은 앱에서 구현
+  +IP헤더(v4버전보다 v6이 더 효율적)
+    BestEffort(도착보증x)
+    신뢰성 관련 부분x=비신뢰성
+    버전 헤더길이 TOS(type of service)=QOS ECN 전체길이
+    식별자 플래그 분할위치(나눌수 있는데이터인지,연속된 데이터인지)
+    TTL=홉카운트 프로트콜 헤더검사합
+    출발지/목적지 주소
+    옵션
+    데이터
+인터넷계층=네트워크계층(머징)
+  IP:v4/v6
+  ICMP:ping=Echo Request+Echo Reply:응답성
+네트워크 접속계층=데이터링크+물리 계층
+  ARP(목적지의 맥주소)ar
+  L2>스위치>맥주소를 기반으로 frame을 포딩하는 장치>동일한 네트워크의 통신 기능 <>L3>라우터>IP주소를 기반으로 프레임을 포워딩서로 다른 네트워크의 통신기능
+  ex)soruce:203.230.7.2>목적지:203.230.8.2 목적지의 맥주소 모름>ARP(디폴트 게이트웨이의 맥주소)
+  ex)if dest on same network ARP(목적지 PC의 맥주소)
+  ARP(IP기준으로 MAC주소 찾기)<>RARP(MAC주소 기반으로 IP찾기)
+  ARP에대한응답>unicast(테이블 완성됨)
