@@ -28,8 +28,14 @@
         >라우터에서 보안 설정할 수 있기에 중요
       >서로 다른 스위치에 연결된 기기들을 통신시키기 위해 VLAN전용 회선을 여러개 만들어야함
         >비용문제
-        >하나의 회선에 여러 VLAN을 연결할 순 없을까? = Trunk port
+        >하나의 회선에 여러 VLAN을 연결할 순 없을까? = Trunk port <> 특정 VLAN에 traffic양이 과도하게 많음=여러 회선이 효율적
           >Gig사용으로 병목현상 해결.
+                >SNMP(사용하는 데이터량 확인하는 프로트콜)
+      >Trunking Protcol
+        >802.1Q
+        >ISL(시스코전용)
+        >스위치와 스위치가 연결되는 혹은 스위치와 라우터가 연결되는 구간에 설정
+      
     >Inter-VLAN 설정
       >라우터 설정
         >CLI  en
@@ -83,13 +89,11 @@
                 int fa0/1
                 switchport mode trunk
                 exit
+    +HUB >VLAN을 나눌수 없다 (<>스위치는 가능)
 #예제
 if R          VLAN30(통신가능>회선과 Router가 있어서)
 PC1    SW  SW  VLAN40(통신불가>회선이 없어서)        
 PC2    VLAN30회선             >그렇기에 매번 VLAN추가시마다 회선을 
-                              추가할 수 없으므로 Trunk port를 주로 사용                
-
-      
-
+                              추가할 수 없으므로 Trunk port를 주로 사용
 
 *FA:fast internet 벤딩수가 100M
