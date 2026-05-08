@@ -90,6 +90,13 @@
                 switchport mode trunk
                 exit
     +HUB >VLAN을 나눌수 없다 (<>스위치는 가능)
+
+#스위치의 종류
+l2 mac주소기반 기본 스위치 > end 디바이스와 연결 V주로 쓰임
+l3 라우팅 가능 >포트가 많은게 장점               V주로 쓰임
+l4 프로트콜 기반 ex) https,http,ftp등등
+l7 서비스 기반 ex)blog.json ,cafe등등
+
 #예제
 if R          VLAN30(통신가능>회선과 Router가 있어서)
 PC1    SW  SW  VLAN40(통신불가>회선이 없어서)        
