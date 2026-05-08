@@ -30,7 +30,7 @@
         >비용문제
         >하나의 회선에 여러 VLAN을 연결할 순 없을까? = Trunk port <> 특정 VLAN에 traffic양이 과도하게 많음=여러 회선이 효율적
           >Gig사용으로 병목현상 해결.
-                >SNMP(사용하는 데이터량 확인하는 프로트콜)
+                >SNMP(사용하는 데이터량 확인하는 프로트콜) >여러 회선으로 연결할지, trunk port를 활용할지
       >Trunking Protcol
         >802.1Q
         >ISL(시스코전용)
