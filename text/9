@@ -1,0 +1,95 @@
+#브로드캐스트 플러딩을 때문에 생기는 과부하 문제의 해결
++브로드 캐스트 영역을 나누면 되지 않을까?
+  >엔드디바이스를 라우터에 직접 연결하면 가능>비용적 한계(포트 부족)
++l2스위치에서 가상화 기술을 이용해 브로드캐스트 도메인을 나눔
+ (VLAN기술을 통한LAN Segmentation) 
+  >논리적 토플로지=/=물리적 토플로지(V)
+*VLAN의 번호는 그저 description(다른 네트워크라는 표시)
++동일 네트워크 기준
+  '동일 네트워크 아이디
+  '동일 장치에 연결
+  '동일한 vlan에 연결되어 있음(한 장치(스위치)에 여러 VLAN)
++CSMA,CD
+  '초창기 데이터 전송의 표준
+  '회선을 공유하지 않는다 
+   > 두 데이터를 동시에 전송되면 jam signal exponential backoff를 통해 랜덤 시간 대기
++스위치(Collision 도메인을 나누는 장비)<CSMA의 문제 해결
+  'Symmetric>같은 대역폭
+  'Asymmetric>다른 대역폭 ex)Fa(패스트인터넷>100M), Gi(기가빗)
+      >Bottle neck(병목현상) >프로트콜적 해결은 불가능
+      >병목 현상이 일어나는 곳에 큰 대역폭 할당
+  'Lan Segmentation > VLAN을 이용해 브로드캐스트 도메인(네트워크)를 나눔
+    >VLAN이 바뀌면 네트워크 id도 바뀜(다른 네트워크 영역이므로)
+    >이때 이렇게 나뉜 네트워크 영역들은 서로 통신이 불가능 
+      > 다른 네트워크 영역 간의 통신은 라우터의 역할이므로. >라우터>라우터와 연결되는 회선은 trunk port여야함.
+        >근데 이 경우 그럼 디폴트 게이트웨이가 하나>나머지 VLAN통신불가
+        >가상화 게이트웨이를 위한 가상 인터페이스
+        >서로 다른 VLAN끼리 통신시 라우터를 거쳐서 통신
+        >라우터에서 보안 설정할 수 있기에 중요
+      >서로 다른 스위치에 연결된 기기들을 통신시키기 위해 VLAN전용 회선을 여러개 만들어야함
+        >비용문제
+        >하나의 회선에 여러 VLAN을 연결할 순 없을까? = Trunk port
+          >Gig사용으로 병목현상 해결.
+    >Inter-VLAN 설정
+      >라우터 설정
+        >CLI  en
+(명령어 안중요)conf t
+              hostname R1
+              int gi0/0/1
+              ip add 203.230.8.1 255.255.255.0
+              no shut
+              exit
+              int gi0/0/0
+              no shut
+              exit
+              int gi0/0/0.10   >VLAN10번 기준 포트라는 뜻.
+              encapsulation dot1q 10
+              ip add 203.230.10.1 255.255.255.0
+              int gi0/0/0.10   >VLAN20번 기준 포트라는 뜻.
+              encapsulation dot1q 20
+              ip add 203.230.20.1 255.255.255.0
+              int gi0/0/0.10   >VLAN30번 기준 포트라는 뜻.
+              encapsulation dot1q 30
+              ip add 203.230.30.1 255.255.255.0
+        >L2SW1 구성(CLI기반)
+          >CLI  en
+  (명령어 안중요)conf t
+                hostname L2SW1
+                vlan 10
+                name VLAN_10
+                vlan 20
+                name VLAN_20
+                exit
+                int fa0/2
+                switchport access vlan 10
+                exit
+                int fa0/3
+                switchportaccess vlan 20
+                exit
+                int range fa0/1,fa0/4
+                switchportmode trunk
+                exit
+        >L2SW2 구성
+          >CLI  en
+  (명령어 안중요)conf t
+                hostname L2SW2
+                vlan 30
+                name VLAN_30
+                exit
+                int fa0/2
+                switchport mode access
+                switchport access vlan 30
+                exit
+                int fa0/1
+                switchport mode trunk
+                exit
+#예제
+if R          VLAN30(통신가능>회선과 Router가 있어서)
+PC1    SW  SW  VLAN40(통신불가>회선이 없어서)        
+PC2    VLAN30회선             >그렇기에 매번 VLAN추가시마다 회선을 
+                              추가할 수 없으므로 Trunk port를 주로 사용                
+
+      
+
+
+*FA:fast internet 벤딩수가 100M
